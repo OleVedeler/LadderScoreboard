@@ -211,6 +211,7 @@
     <Content Include="Views\LadderEntry\Details.cshtml" />
     <Content Include="Views\LadderEntry\Edit.cshtml" />
     <Content Include="Views\LadderEntry\Index.cshtml" />
+    <Content Include="Views\LadderEntry\Admin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

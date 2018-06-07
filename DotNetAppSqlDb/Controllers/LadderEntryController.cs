@@ -18,7 +18,22 @@ namespace DotNetAppSqlDb.Controllers
         public ActionResult Index()
         {
             Trace.WriteLine("GET /LadderEntry/Index");
-            return View(db.LadderEntries.ToList());
+
+            var ladderEntries = db.LadderEntries.ToList();
+
+            var sortedLadderEntries = ladderEntries.OrderBy(o => o.Rank).ToList();
+            return View(sortedLadderEntries);
+        }
+
+        // GET: Todos
+        public ActionResult Admin()
+        {
+            Trace.WriteLine("GET /LadderEntry/Admin");
+
+            var ladderEntries = db.LadderEntries.ToList();
+
+            var sortedLadderEntries = ladderEntries.OrderBy(o => o.Rank).ToList();
+            return View(sortedLadderEntries);
         }
 
         // GET: Todos/Details/5
@@ -41,7 +56,7 @@ namespace DotNetAppSqlDb.Controllers
         public ActionResult Create()
         {
             Trace.WriteLine("GET /LadderEntry/Create");
-            return View(new LadderEntry ());
+            return View(new LadderEntry());
         }
 
         // POST: Todos/Create
@@ -49,14 +64,16 @@ namespace DotNetAppSqlDb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArmyList,Army, PlayerName,Rank")] LadderEntry ladderEntry)
+        public ActionResult Create([Bind(Include = "ArmyList,Army,PlayerName,Rank")] LadderEntry ladderEntry)
         {
             Trace.WriteLine("POST /LadderEntry/Create");
+
+
             if (ModelState.IsValid)
             {
                 db.LadderEntries.Add(ladderEntry);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin");
             }
 
             return View(ladderEntry);
@@ -90,7 +107,7 @@ namespace DotNetAppSqlDb.Controllers
             {
                 db.Entry(ladderEntry).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Admin");
             }
             return View(ladderEntry);
         }
@@ -120,7 +137,7 @@ namespace DotNetAppSqlDb.Controllers
             LadderEntry ladderEntry = db.LadderEntries.Find(id);
             db.LadderEntries.Remove(ladderEntry);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Admin");
         }
 
         protected override void Dispose(bool disposing)
