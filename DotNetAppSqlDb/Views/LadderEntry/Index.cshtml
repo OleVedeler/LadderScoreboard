@@ -6,9 +6,6 @@
 
 <h2>Ladder Campaign</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
 <table class="table">
     <tr>
         <th>
@@ -29,21 +26,16 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayNameFor(model => model.Rank)
+            @Html.DisplayFor(modelItem => item.Rank)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.Army)
+            @Html.DisplayFor(modelItem => item.Army)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.ArmyList)
+            @Html.DisplayFor(modelItem => item.ArmyList)
         </td>
         <td>
-            @Html.DisplayNameFor(model => model.PlayerName)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+            @Html.DisplayFor(modelItem => item.PlayerName)
         </td>
     </tr>
 }
