@@ -1,0 +1,51 @@
+﻿@model IEnumerable<DotNetAppSqlDb.Models.LadderEntry>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Ladder Campaign</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Rank)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Army)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ArmyList)
+        </th>       
+        <th>
+            @Html.DisplayNameFor(model => model.PlayerName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayNameFor(model => model.Rank)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.Army)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.ArmyList)
+        </td>
+        <td>
+            @Html.DisplayNameFor(model => model.PlayerName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>
