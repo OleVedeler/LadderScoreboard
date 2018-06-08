@@ -64,13 +64,15 @@ namespace DotNetAppSqlDb.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ArmyList,Army,PlayerName,Rank")] LadderEntry ladderEntry)
+        public ActionResult Create([Bind(Include = "ArmyList,Army,PlayerName, Rank")] LadderEntry ladderEntry)
         {
             Trace.WriteLine("POST /LadderEntry/Create");
 
 
             if (ModelState.IsValid)
             {
+                var count = db.LadderEntries.Count() + 1;
+                ladderEntry.Rank = count.ToString();
                 db.LadderEntries.Add(ladderEntry);
                 db.SaveChanges();
                 return RedirectToAction("Admin");
@@ -105,6 +107,16 @@ namespace DotNetAppSqlDb.Controllers
             Trace.WriteLine("POST /LadderEntry/Edit/" + ladderEntry.ID);
             if (ModelState.IsValid)
             {
+                var previousEntryData = db.LadderEntries.Find(ladderEntry.ID)?.Rank;
+                
+                var swapEntry = db.LadderEntries.FirstOrDefault(x => x.Rank == ladderEntry.Rank && x.ID != ladderEntry.ID);
+
+                if (swapEntry != null && previousEntryData != null)
+                {
+                    swapEntry.Rank = previousEntryData;
+                    db.Entry(swapEntry).State = EntityState.Modified;
+                }
+
                 db.Entry(ladderEntry).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Admin");

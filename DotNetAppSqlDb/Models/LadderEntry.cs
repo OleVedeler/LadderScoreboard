@@ -10,10 +10,12 @@ namespace DotNetAppSqlDb.Models
     {
         public int ID { get; set; }
 
+        [Display(Name = "Army List")]
         public string ArmyList { get; set; }
 
         public string Army { get; set; }
 
+        [Display(Name = "Player Name")]
         public string PlayerName { get; set; }
 
         public string Rank { get; set; }
